@@ -1,0 +1,153 @@
+{
+  "version": 1,
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "defaultProject": "market-data-monitor",
+  "schematics": {
+    "@nrwl/angular": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "style": "css",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "css",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "css"
+    }
+  },
+  "projects": {
+    "market-data-monitor": {
+      "projectType": "application",
+      "root": "apps/market-data-monitor",
+      "sourceRoot": "apps/market-data-monitor/src",
+      "prefix": "solution-architects",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/market-data-monitor",
+            "index": "apps/market-data-monitor/src/index.html",
+            "main": "apps/market-data-monitor/src/main.ts",
+            "polyfills": "apps/market-data-monitor/src/polyfills.ts",
+            "tsConfig": "apps/market-data-monitor/tsconfig.app.json",
+            "assets": [
+              "apps/market-data-monitor/src/favicon.ico",
+              "apps/market-data-monitor/src/assets"
+            ],
+            "styles": ["apps/market-data-monitor/src/styles.css"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/market-data-monitor/src/environments/environment.ts",
+                  "with": "apps/market-data-monitor/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "market-data-monitor:build:production"
+            },
+            "development": {
+              "browserTarget": "market-data-monitor:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "market-data-monitor:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/market-data-monitor/src/**/*.ts",
+              "apps/market-data-monitor/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/market-data-monitor"],
+          "options": {
+            "jestConfig": "apps/market-data-monitor/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "market-data-monitor-e2e": {
+      "root": "apps/market-data-monitor-e2e",
+      "sourceRoot": "apps/market-data-monitor-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/market-data-monitor-e2e/cypress.json",
+            "tsConfig": "apps/market-data-monitor-e2e/tsconfig.e2e.json",
+            "devServerTarget": "market-data-monitor:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "market-data-monitor:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/market-data-monitor-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    }
+  }
+}
