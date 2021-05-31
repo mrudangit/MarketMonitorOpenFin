@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MarketDataService } from './services/market.data.service';
+
 
 @Component({
   selector: 'solution-architects-root',
@@ -7,4 +9,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'market-data-monitor';
+  constructor(private marketDataService: MarketDataService) {
+
+
+
+  }
 }

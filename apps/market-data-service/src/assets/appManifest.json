@@ -1,0 +1,13 @@
+{
+  "startup_app": {
+    "autoShow": true,
+    "name": "MarketDataService-UAT",
+    "saveWindowState": false,
+    "url": "http://localhost:4400/index.html",
+    "uuid": "MarketDataService-UAT"
+  },
+  "runtime": {
+    "arguments": "--no-sandbox",
+    "version": "19.89.60.5"
+  }
+}

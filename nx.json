@@ -22,9 +22,8 @@
     "market-data-monitor": {
       "tags": []
     },
-    "market-data-monitor-e2e": {
-      "tags": [],
-      "implicitDependencies": ["market-data-monitor"]
+    "market-data-service": {
+      "tags": []
     }
   }
 }

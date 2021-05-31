@@ -1,0 +1,13 @@
+{
+  "startup_app": {
+    "autoShow": true,
+    "name": "MarketDataMonitor-UAT",
+    "saveWindowState": false,
+    "url": "http://localhost:4200/index.html",
+    "uuid": "MarketDataMonitor-UAT"
+  },
+  "runtime": {
+    "arguments": "--no-sandbox",
+    "version": "19.89.60.5"
+  }
+}

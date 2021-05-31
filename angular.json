@@ -51,7 +51,8 @@
               "apps/market-data-monitor/src/assets"
             ],
             "styles": ["apps/market-data-monitor/src/styles.css"],
-            "scripts": []
+            "scripts": [],
+            "webWorkerTsConfig": "apps/market-data-monitor/tsconfig.worker.json"
           },
           "configurations": {
             "production": {
@@ -123,28 +124,94 @@
         }
       }
     },
-    "market-data-monitor-e2e": {
-      "root": "apps/market-data-monitor-e2e",
-      "sourceRoot": "apps/market-data-monitor-e2e/src",
+    "market-data-service": {
       "projectType": "application",
+      "root": "apps/market-data-service",
+      "sourceRoot": "apps/market-data-service/src",
+      "prefix": "solution-architects",
       "architect": {
-        "e2e": {
-          "builder": "@nrwl/cypress:cypress",
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "cypressConfig": "apps/market-data-monitor-e2e/cypress.json",
-            "tsConfig": "apps/market-data-monitor-e2e/tsconfig.e2e.json",
-            "devServerTarget": "market-data-monitor:serve:development"
+            "outputPath": "dist/apps/market-data-service",
+            "index": "apps/market-data-service/src/index.html",
+            "main": "apps/market-data-service/src/main.ts",
+            "polyfills": "apps/market-data-service/src/polyfills.ts",
+            "tsConfig": "apps/market-data-service/tsconfig.app.json",
+            "assets": [
+              "apps/market-data-service/src/favicon.ico",
+              "apps/market-data-service/src/assets"
+            ],
+            "styles": ["apps/market-data-service/src/styles.css"],
+            "scripts": [],
+            "webWorkerTsConfig": "apps/market-data-service/tsconfig.worker.json"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "market-data-monitor:serve:production"
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/market-data-service/src/environments/environment.ts",
+                  "with": "apps/market-data-service/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
             }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "market-data-service:build:production"
+            },
+            "development": {
+              "browserTarget": "market-data-service:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "market-data-service:build"
           }
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/market-data-monitor-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/market-data-service/src/**/*.ts",
+              "apps/market-data-service/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/market-data-service"],
+          "options": {
+            "jestConfig": "apps/market-data-service/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }
