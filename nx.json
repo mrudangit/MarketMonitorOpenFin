@@ -24,6 +24,9 @@
     },
     "market-data-service": {
       "tags": []
+    },
+    "shared": {
+      "tags": []
     }
   }
 }
