@@ -10,6 +10,6 @@
     "types": []
   },
   "include": [
-    "src/apps/market-data-monitor/src/app/market-data-service.worker.ts"
+    "src/**/*.worker.ts"
   ]
 }

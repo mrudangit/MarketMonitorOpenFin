@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@solution-architects/shared": ["libs/shared/src/index.ts"]
+      "@solution-architects/shared": ["libs/shared/src/index.ts"],
+      "@solution-architects/common": ["libs/common/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
